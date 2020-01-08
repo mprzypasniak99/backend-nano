@@ -157,13 +157,16 @@ std::vector<char> Nano::GetBindTab()
     return tab;
 }
 
-void Nano::start()
-{
+Nano::Nano() {
     initscr();
-    int row, col;
     raw();
     keypad(stdscr, true);
     noecho();
+}
+
+void Nano::start()
+{
+    int row, col;
     getmaxyx(stdscr, row, col);
     move(row-1, 1);
     refresh();
