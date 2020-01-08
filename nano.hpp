@@ -6,9 +6,11 @@
 class Nano : public Backend
 {
     private:
+    std::vector<BindingString> bindings;
     std::vector<char> GetBindTab();
     
     public:
+    Nano();
     void quit();
     void help();
     void bind(std::string str, std::function<void()> func, std::string help);
