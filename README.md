@@ -8,9 +8,10 @@
     - Delete(DEL)
     - Backspace(BS)
     - Strzałki(LARROW, RARROW, UARROW, DARROW)
+    - EDITION - jest to implementacja odpowiedzi toola na wciśnięcie dowolnego przycisku nie objętego bindem. Wartość wciśniętego przycisku przekazywana jest toolowi poprzez funkcję `setEntry("KEY", a)`, gdzie `a` to wciśnięty przycisk.
 W nawiasach podane są nazwy, których trzeba użyć przy wpisywaniu do funkcji bind
 - `void start()` - funkcja obsługująca całą komunikację między toolem a sprzętem
-- std::vector<char> GetBindTab - pomocnicza funkcja zwracająca tablicę z skrótami klawiszowymi
+- `std::vector<char> GetBindTab` - pomocnicza funkcja zwracająca tablicę z skrótami klawiszowymi
 
 ## Skróty zaimplementowane
 - CTRL+Q - wyłącza program, póki co wyświetla tylko okienko z wiadomością o niezapisanym pliku (program można zamknąć naciskając klawisz 'F')
