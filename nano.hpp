@@ -6,7 +6,7 @@
 class Nano : public Backend
 {
     private:
-    std::vector<char> GetBindTab();
+    std::vector<int> GetBindTab();
     std::vector<BindingString> bindings;
     bool exit = false;
     void quit();

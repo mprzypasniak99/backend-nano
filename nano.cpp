@@ -113,9 +113,9 @@ void Nano::bind(std::string str, std::function<void()> func, std::string help)
     }
 }
 
-std::vector<char> Nano::GetBindTab()
+std::vector<int> Nano::GetBindTab()
 {
-    std::vector<char> tab;
+    std::vector<int> tab;
     char tmp;
     for(int i = 0; i < bindings.size(); i++)
     {
@@ -195,7 +195,7 @@ void Nano::start()
     bind("#nano#<CTRL>Q%Quit", [&](){this->quit();}, "Exit program");
     bind("#nano#<CTRL>H%Help", [&](){this->help();}, "Show every keyboard shortcut with its help");
 
-    std::vector<char> bindTab = GetBindTab();
+    std::vector<int> bindTab = GetBindTab();
 
     for(int i = 0; i < bindings.size(); i++)
     {
@@ -216,7 +216,7 @@ void Nano::start()
         }
     }
     refresh();
-    char a = 0;
+    int a = 0;
     while(!exit)
     {
         a = getch();
@@ -230,8 +230,9 @@ void Nano::start()
                 {
                     int l = bindings[i].name.find('{'), r = bindings[i].name.find('}');
                     std::string text = bindings[i].name.substr(prompt+1, bindings[i].name.find('$') - prompt - 1);
-                    std::string entry, 
+                    std::string entry,
                     name = bindings[i].name.substr(l+1, r - l - 2);
+                    char tmp[100];
                     int width = text.size(); 
                     WINDOW *message = create_new_window(8, width + 4, row/2 - 4, col/2 - width/2);
                     
@@ -240,7 +241,8 @@ void Nano::start()
                     wmove(message, 5, width/2);
                     echo();
                     wrefresh(message);
-                    mvwscanw(message, 5, width/2 - 2, "%s", entry);
+                    mvwscanw(message, 5, width/2 - 2, "%s", tmp);
+                    entry = tmp;
                     tool->setEntry(name, entry);
                     noecho();
                     wclear(message);
