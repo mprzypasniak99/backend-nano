@@ -181,6 +181,7 @@ Nano::Nano()
     raw();
     keypad(stdscr, true);
     noecho();
+    nonl();
 }
 
 
@@ -231,7 +232,7 @@ void Nano::start()
                     int l = bindings[i].name.find('{'), r = bindings[i].name.find('}');
                     std::string text = bindings[i].name.substr(prompt+1, bindings[i].name.find('$') - prompt - 1);
                     std::string entry,
-                    name = bindings[i].name.substr(l+1, r - l - 2);
+                    name = bindings[i].name.substr(l+1, r - l - 1);
                     char tmp[100];
                     int width = text.size(); 
                     WINDOW *message = create_new_window(8, width + 4, row/2 - 4, col/2 - width/2);
@@ -262,7 +263,42 @@ void Nano::start()
                 if(bindings[j].name == "<EDITION>")
                 {
                     std::string tmp;
-                    tmp.push_back(a);
+                    //tmp.push_back(a);
+                    if(ctrl(a) == a)
+                    {
+                        tmp = "<CTRL>";
+                        tmp.push_back(a);
+                    }
+                    else if((a & ~32) == a)
+                    {
+                        tmp = "<SHIFT>";
+                        tmp.push_back(a);
+                    }
+                    else if(a == KEY_BACKSPACE)
+                    {
+                        tmp = "<BS>";
+                    }
+                    else if(a == KEY_UP)
+                    {
+                        tmp = "<UARROW>";
+                    }
+                    else if(a == KEY_DOWN)
+                    {
+                        tmp = "<DARROW>";
+                    }
+                    else if(a == KEY_LEFT)
+                    {
+                        tmp = "<LARROW>";
+                    }
+                    else if(a == KEY_RIGHT)
+                    {
+                        tmp = "<RARROW>";
+                    }
+                    else if(a == KEY_DC)
+                    {
+                        tmp = "<DEL>";
+                    }
+                    
                     tool->setEntry("KEY", tmp);
                     bindings[j].func();
                 }
