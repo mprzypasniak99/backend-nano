@@ -24,7 +24,6 @@ void Nano::quit()
 {
     bool q = false;
     if(tool->getEntry("IS_SAVED") == "NO")
-    // if(q == true)
     {
         int y, x;
         getmaxyx(stdscr, y, x);
@@ -35,6 +34,7 @@ void Nano::quit()
         wclear(tmp);
         wrefresh(tmp);
         destroy_window(tmp);
+        tool->redraw();
     }
     else
     {
@@ -69,6 +69,7 @@ void Nano::help()
     wclear(help_win);
     wrefresh(help_win);
     destroy_window(help_win);
+    tool->redraw();
 }
 
 
@@ -133,12 +134,12 @@ std::vector<int> Nano::GetBindTab()
         key.assign(bindings[i].name, 0, k);
         if(key == "CTRL")
         {
-            tab.push_back(ctrl(bindings[i].name[k+1]));
+            tab.push_back(ctrl((int)bindings[i].name[k+1]));
         }
         else if (key == "SHIFT")
         {
             const int x = 32;
-            tab.push_back(bindings[i].name[k+1] & ~x);
+            tab.push_back((int)bindings[i].name[k+1] & ~x);
         }
         else if (key[0] == 'F')
         {
@@ -264,17 +265,7 @@ void Nano::start()
                 {
                     std::string tmp;
                     //tmp.push_back(a);
-                    if(ctrl(a) == a)
-                    {
-                        tmp = "<CTRL>";
-                        tmp.push_back(a);
-                    }
-                    else if((a & ~32) == a)
-                    {
-                        tmp = "<SHIFT>";
-                        tmp.push_back(a);
-                    }
-                    else if(a == KEY_BACKSPACE)
+                    if(a == KEY_BACKSPACE)
                     {
                         tmp = "<BS>";
                     }
@@ -298,6 +289,11 @@ void Nano::start()
                     {
                         tmp = "<DEL>";
                     }
+                    else
+                    {
+                        tmp.push_back(static_cast<char>(a));
+                    }
+                    
                     
                     tool->setEntry("KEY", tmp);
                     bindings[j].func();

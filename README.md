@@ -8,8 +8,9 @@
     - Delete(DEL)
     - Backspace(BS)
     - Strzałki(LARROW, RARROW, UARROW, DARROW)
-    - EDITION - jest to implementacja odpowiedzi toola na wciśnięcie dowolnego przycisku nie objętego bindem. Wartość wciśniętego przycisku przekazywana jest toolowi poprzez funkcję `setEntry("KEY", a)`, gdzie `a` to wciśnięty przycisk.
-W nawiasach podane są nazwy, których trzeba użyć przy wpisywaniu do funkcji bind
+    - EDITION - jest to implementacja odpowiedzi toola na wciśnięcie dowolnego przycisku nie objętego bindem. Wartość wciśniętego przycisku przekazywana jest toolowi poprzez funkcję `setEntry("KEY", a)`, gdzie `a` to wciśnięty przycisk. Klawisze specjalne, np Delete, Backspace, są przekazywane w nawiasach ostrych, np `<DEL>` i `<BS>`.\\
+W nawiasach podane są nazwy, których trzeba użyć przy wpisywaniu do funkcji bind(w nawiasach ostrych <>).\\
+Nie można używać skrótów łączonych, np. `<CTRL><SHIFT>N`, `<SHIFT><DEL>`
 - `void start()` - funkcja obsługująca całą komunikację między toolem a sprzętem
 - `std::vector<char> GetBindTab` - pomocnicza funkcja zwracająca tablicę z skrótami klawiszowymi
 

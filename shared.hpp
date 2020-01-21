@@ -3,6 +3,8 @@
 
 #include <functional>
 #include <vector>
+#include <string>
+
 
 struct BindingString {
     std::string name;
