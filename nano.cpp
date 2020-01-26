@@ -114,6 +114,19 @@ void Nano::bind(std::string str, std::function<void()> func, std::string help)
     }
 }
 
+void Nano::re_bind(std::string old_bind, std::string new_bind)
+{
+    for(int i = 0; i < bindings.size(); i++)
+    {
+        if(bindings[i].name.find(old_bind) != -1)
+        {
+            bindings[i].name = new_bind;
+            changes = true;
+            break;
+        }
+    }
+}
+
 std::vector<int> Nano::GetBindTab()
 {
     std::vector<int> tab;
@@ -185,20 +198,12 @@ Nano::Nano()
     nonl();
 }
 
-
-
-void Nano::start()
+void Nano::draw_bottom_line()
 {
     int row, col;
     getmaxyx(stdscr, row, col);
     move(row-1, 1);
     refresh();
-
-    bind("#nano#<CTRL>Q%Quit", [&](){this->quit();}, "Exit program");
-    bind("#nano#<CTRL>H%Help", [&](){this->help();}, "Show every keyboard shortcut with its help");
-
-    std::vector<int> bindTab = GetBindTab();
-
     for(int i = 0; i < bindings.size(); i++)
     {
         if(bindings[i].name != "<EDITION>")
@@ -218,11 +223,30 @@ void Nano::start()
         }
     }
     refresh();
+}
+
+
+
+void Nano::start()
+{
+    int row, col;
+    getmaxyx(stdscr, row, col);
+    move(row-1, 1);
+    refresh();
+
+    bind("#nano#<CTRL>Q%Quit", [&](){this->quit();}, "Exit program");
+    bind("#nano#<CTRL>H%Help", [&](){this->help();}, "Show every keyboard shortcut with its help");
+
+    std::vector<int> bindTab = GetBindTab();
+
+    draw_bottom_line();
+
     int a = 0;
     while(!exit)
     {
         a = getch();
         int i;
+        re_bind("CTRL+t", "CTRL+f-Respect");
         for(i = 0; i < bindTab.size(); i++)
         {
             if(a == bindTab[i])
@@ -300,7 +324,13 @@ void Nano::start()
                 }
             }
         }
-
+        if(changes)
+        {
+            draw_bottom_line();
+            bindTab = GetBindTab();
+            changes = false;
+        }
+        
     }
     
     endwin();
