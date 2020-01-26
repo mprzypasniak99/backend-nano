@@ -240,6 +240,7 @@ void Nano::start()
     std::vector<int> bindTab = GetBindTab();
 
     draw_bottom_line();
+    tool->redraw();
 
     int a = 0;
     while(!exit)
@@ -266,7 +267,7 @@ void Nano::start()
                     wmove(message, 5, width/2);
                     echo();
                     wrefresh(message);
-                    mvwscanw(message, 5, width/2 - 2, "%s", tmp);
+                    mvwgetstr(message, 5, width/2 - 2, tmp);
                     entry = tmp;
                     tool->setEntry(name, entry);
                     noecho();
