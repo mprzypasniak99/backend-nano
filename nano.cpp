@@ -246,7 +246,6 @@ void Nano::start()
     {
         a = getch();
         int i;
-        re_bind("CTRL+t", "CTRL+f-Respect");
         for(i = 0; i < bindTab.size(); i++)
         {
             if(a == bindTab[i])
