@@ -17,7 +17,7 @@ class Nano : public Backend
     public:
     Nano();
     void bind(std::string str, std::function<void()> func, std::string help);
-    void re_bind(std::string old_bind, std::string new_bind);
+    void re_bind(std::string old_bind, std::string new_bind, std::function<void()> func);
     void start();
 
 };

@@ -114,7 +114,7 @@ void Nano::bind(std::string str, std::function<void()> func, std::string help)
     }
 }
 
-void Nano::re_bind(std::string old_bind, std::string new_bind)
+void Nano::re_bind(std::string old_bind, std::string new_bind, std::function<void()> func)
 {
     for(int i = 0; i < bindings.size(); i++)
     {
