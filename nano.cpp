@@ -313,6 +313,10 @@ void Nano::start()
                     {
                         tmp = "<DEL>";
                     }
+                    else if(a == KEY_ENTER)
+                    {
+                        tmp = "<ENTER>"
+                    }
                     else
                     {
                         tmp.push_back(static_cast<char>(a));
