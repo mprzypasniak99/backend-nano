@@ -315,7 +315,7 @@ void Nano::start()
                     }
                     else if(a == KEY_ENTER)
                     {
-                        tmp = "<ENTER>"
+                        tmp = "<ENTER>";
                     }
                     else
                     {
