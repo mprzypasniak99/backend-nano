@@ -1,10 +1,9 @@
 #ifndef Shared_hpp
 #define Shared_hpp
 
-#include <functional>
-#include <vector>
 #include <string>
-
+#include <vector>
+#include <functional>
 
 struct BindingString {
     std::string name;
@@ -29,6 +28,7 @@ public:
     Tool* tool;
     virtual void bind(std::string str, std::function<void()> func, std::string help) = 0;
     virtual void start() = 0;
+    virtual void re_bind(std::string old_bind, std::string new_bind, std::function<void()> func) = 0;
 };
 
 #endif
